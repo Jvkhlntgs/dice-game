@@ -8,17 +8,27 @@ var scores = [0, 0];
 var points = 0;
 
 // Side of dice, it will be 1-6 varieble that turns randomly
-var side = Math.floor(Math.random() * 6) + 1;
+var sideNumber = Math.floor(Math.random() * 6) + 1;
 
-//<div class="player-score" id="score-0">43</div>
-// disappear dice
-document.querySelector(".dice").style.display = "none";
 // First points must be 0
-document.querySelector("#score-0").textContent = 0;
-document.querySelector("#score-1").textContent = 0;
+document.getElementById("score-0").textContent = "0";
+document.getElementById("score-1").textContent = "0";
+document.getElementById("current-0").textContent = "0";
+document.getElementById("current-1").textContent = "0";
+// document.querySelector("#score-0").textContent = 0;
+// document.querySelector("#score-1").textContent = 0;
+// document.querySelector("#current-0").textContent = 0;
+// document.querySelector("#current-1").textContent = 0;
 
-//Current must be 0 too
-document.querySelector("#current-0").textContent = 0;
-document.querySelector("#current-1").textContent = 0;
+console.log("Dice :" + sideNumber);
 
-console.log("Dice :" + side);
+var diceDom = document.querySelector(".dice");
+
+diceDom.style.display = "none";
+
+// Dice button ami oruulii
+document.querySelector(".btn-roll").addEventListener("click", function () {
+  var sideNumber = Math.floor(Math.random() * 6) + 1;
+  diceDom.style.display = "block";
+  diceDom.src = "dice-" + sideNumber + ".png";
+});
