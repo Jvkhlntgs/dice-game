@@ -1,32 +1,55 @@
-// Whose turn now ?, first player is 0, second is 1
-var activePlayer = 0;
+// Togloomiin buh gazar ashiglah global huvisagchid
+var activePlayer;
+var roundScore;
+var scores;
 
-// Saved score of players
-var scores = [0, 0];
-
-// Turning points
-var roundScore = 0;
-
-// Side of dice, it will be 1-6 varieble that turns randomly
-var sideNumber = Math.floor(Math.random() * 6) + 1;
-
-// First points must be 0
-document.getElementById("score-0").textContent = "0";
-document.getElementById("score-1").textContent = "0";
-document.getElementById("current-0").textContent = "0";
-document.getElementById("current-1").textContent = "0";
-
-// console.log("Dice :" + sideNumber);
-
+// Shoonii zurgiig uzuuleh elementiig dom-oos haij oloh.
 var diceDom = document.querySelector(".dice");
-diceDom.style.display = "none";
+
+// Togloomig ehliiley
+initGame();
+
+// Togloom ehluuleh function
+function initGame() {
+  // Whose turn now ?, first player is 0, second is 1
+  activePlayer = 0;
+
+  // Saved score of players
+  scores = [0, 0];
+
+  // Turning points
+  roundScore = 0;
+
+  // First points must be 0
+  document.getElementById("score-0").textContent = "0";
+  document.getElementById("score-1").textContent = "0";
+  document.getElementById("current-0").textContent = "0";
+  document.getElementById("current-1").textContent = "0";
+
+  //Toglogchid ner butsaaj gargah
+  document.getElementById("name-0").textContent = "Player 1";
+  document.getElementById("name-1").textContent = "Player 2";
+  document.querySelector(".player-0-panel").classList.remove("winner");
+  document.querySelector(".player-1-panel").classList.remove("winner");
+
+  //active gargalt
+  document.querySelector(".player-0-panel").classList.remove("active");
+  document.querySelector(".player-1-panel").classList.remove("active");
+
+  document.querySelector(".player-0-panel").classList.add("active");
+
+  //display ehlehed hooson baih shoogui bh.
+  diceDom.style.display = "none";
+}
 
 // Dice button ami oruulii
 document.querySelector(".btn-roll").addEventListener("click", function () {
-  // toog zuragtai ni holboh
+  // 1-6 hurtel sanamsargui toog avah
   var sideNumber = Math.floor(Math.random() * 6) + 1;
-  // web butsaan gargalt
+  // toog zuragtai ni holboh
   diceDom.style.display = "block";
+
+  // web butsaan gargalt
   diceDom.src = "dice-" + sideNumber + ".png";
 
   // Toglogchiin eeljiin onoog oorchlolt gehdee 1 ees busad too.
@@ -82,6 +105,4 @@ function switchToNextPlayer() {
 }
 
 // Shineeer togloomig ehluuleh tovchnii event listener
-document.querySelector(".btn-new").addEventListener("click", function () {
-  alert("hi");
-});
+document.querySelector(".btn-new").addEventListener("click", initGame);
