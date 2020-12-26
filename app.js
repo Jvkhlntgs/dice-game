@@ -85,7 +85,7 @@ document.querySelector(".btn-hold").addEventListener("click", function () {
       scores[activePlayer];
 
     //Toglogchiin hojson eseh shalgah onoo 100>=
-    if (scores[activePlayer] >= 10) {
+    if (scores[activePlayer] >= 100) {
       // Togloomiin duussan tolov
       isNewGame = false;
 
