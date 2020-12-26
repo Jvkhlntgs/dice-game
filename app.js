@@ -1,3 +1,5 @@
+// Togloomiin toloviin huvisag duussan, pauselasan esehiig shalgah
+var isNewGame;
 // Togloomiin buh gazar ashiglah global huvisagchid
 var activePlayer;
 var roundScore;
@@ -11,6 +13,8 @@ initGame();
 
 // Togloom ehluuleh function
 function initGame() {
+  //Togloom ehlelee gedeg tolov
+  isNewGame = true;
   // Whose turn now ?, first player is 0, second is 1
   activePlayer = 0;
 
@@ -44,47 +48,60 @@ function initGame() {
 
 // Dice button ami oruulii
 document.querySelector(".btn-roll").addEventListener("click", function () {
-  // 1-6 hurtel sanamsargui toog avah
-  var sideNumber = Math.floor(Math.random() * 6) + 1;
-  // toog zuragtai ni holboh
-  diceDom.style.display = "block";
+  if (isNewGame) {
+    // 1-6 hurtel sanamsargui toog avah
+    var sideNumber = Math.floor(Math.random() * 6) + 1;
+    // toog zuragtai ni holboh
+    diceDom.style.display = "block";
 
-  // web butsaan gargalt
-  diceDom.src = "dice-" + sideNumber + ".png";
+    // web butsaan gargalt
+    diceDom.src = "dice-" + sideNumber + ".png";
 
-  // Toglogchiin eeljiin onoog oorchlolt gehdee 1 ees busad too.
-  if (sideNumber !== 1) {
-    // 1ees ylgaatai baih uyd
-    roundScore = roundScore + sideNumber;
-    document.getElementById("current-" + activePlayer).textContent = roundScore;
+    // Toglogchiin eeljiin onoog oorchlolt gehdee 1 ees busad too.
+    if (sideNumber !== 1) {
+      // 1ees ylgaatai baih uyd
+      roundScore = roundScore + sideNumber;
+      document.getElementById(
+        "current-" + activePlayer
+      ).textContent = roundScore;
+    } else {
+      // 1 baih uyd eelj soligdoh buyu activePlayer = 0 baival 1 bolgono harin 1 baival 0 bolgono.
+      switchToNextPlayer();
+    }
   } else {
-    // 1 baih uyd eelj soligdoh buyu activePlayer = 0 baival 1 bolgono harin 1 baival 0 bolgono.
-    switchToNextPlayer();
+    alert("Togloom duussan bna");
   }
 });
 
 // Hold event listener
 
 document.querySelector(".btn-hold").addEventListener("click", function () {
-  //Ug toglogchiin tsugluulsan eeljiin onoog hold hesegruu oruulah
-  scores[activePlayer] = scores[activePlayer] + roundScore;
+  if (isNewGame) {
+    //Ug toglogchiin tsugluulsan eeljiin onoog hold hesegruu oruulah
+    scores[activePlayer] = scores[activePlayer] + roundScore;
 
-  // Delgets deer hadgalsan onoog oorchloh
-  document.getElementById("score-" + activePlayer).textContent =
-    scores[activePlayer];
+    // Delgets deer hadgalsan onoog oorchloh
+    document.getElementById("score-" + activePlayer).textContent =
+      scores[activePlayer];
 
-  //Toglogchiin hojson eseh shalgah onoo 100>=
-  if (scores[activePlayer] >= 10) {
-    document.getElementById("name-" + activePlayer).textContent =
-      "Winner YEEEEY";
-    document
-      .querySelector(".player-" + activePlayer + "-panel")
-      .classList.add("winner");
-    document
-      .querySelector(".player-" + activePlayer + "-panel")
-      .classList.remove("active");
+    //Toglogchiin hojson eseh shalgah onoo 100>=
+    if (scores[activePlayer] >= 10) {
+      // Togloomiin duussan tolov
+      isNewGame = false;
+
+      document.getElementById("name-" + activePlayer).textContent =
+        "Winner YEEEEY";
+      document
+        .querySelector(".player-" + activePlayer + "-panel")
+        .classList.add("winner");
+      document
+        .querySelector(".player-" + activePlayer + "-panel")
+        .classList.remove("active");
+    } else {
+      switchToNextPlayer();
+    }
   } else {
-    switchToNextPlayer();
+    alert("game is over");
   }
 });
 
