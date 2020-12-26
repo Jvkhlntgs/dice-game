@@ -90,7 +90,7 @@ document.querySelector(".btn-hold").addEventListener("click", function () {
       isNewGame = false;
 
       document.getElementById("name-" + activePlayer).textContent =
-        "Winner YEEEEY";
+        "Bi hojloo gg haha bootsoogoo avii";
       document
         .querySelector(".player-" + activePlayer + "-panel")
         .classList.add("winner");
@@ -101,7 +101,7 @@ document.querySelector(".btn-hold").addEventListener("click", function () {
       switchToNextPlayer();
     }
   } else {
-    alert("game is over");
+    alert("Hen negeon hojigdoj bootsoogo aldsan baina 'new game' tovch darnuu");
   }
 });
 
