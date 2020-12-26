@@ -36,18 +36,52 @@ document.querySelector(".btn-roll").addEventListener("click", function () {
     document.getElementById("current-" + activePlayer).textContent = roundScore;
   } else {
     // 1 baih uyd eelj soligdoh buyu activePlayer = 0 baival 1 bolgono harin 1 baival 0 bolgono.
-
-    //ene toglogchiin dice 1 buusan tul onoo 0 boln
-    roundScore = 0;
-    document.getElementById("current-" + activePlayer).textContent = 0;
-
-    //Toglogchiin eelj shiljuuleh
-    activePlayer === 0 ? (activePlayer = 1) : (activePlayer = 0);
-
-    //Ulaan tseg shiljuuleh.
-    document.querySelector(".player-0-panel").classList.toggle("active");
-    document.querySelector(".player-1-panel").classList.toggle("active");
-    // Shoo tur alga bolgoh
-    diceDom.style.display = "none";
+    switchToNextPlayer();
   }
+});
+
+// Hold event listener
+
+document.querySelector(".btn-hold").addEventListener("click", function () {
+  //Ug toglogchiin tsugluulsan eeljiin onoog hold hesegruu oruulah
+  scores[activePlayer] = scores[activePlayer] + roundScore;
+
+  // Delgets deer hadgalsan onoog oorchloh
+  document.getElementById("score-" + activePlayer).textContent =
+    scores[activePlayer];
+
+  //Toglogchiin hojson eseh shalgah onoo 100>=
+  if (scores[activePlayer] >= 10) {
+    document.getElementById("name-" + activePlayer).textContent =
+      "Winner YEEEEY";
+    document
+      .querySelector(".player-" + activePlayer + "-panel")
+      .classList.add("winner");
+    document
+      .querySelector(".player-" + activePlayer + "-panel")
+      .classList.remove("active");
+  } else {
+    switchToNextPlayer();
+  }
+});
+
+// toglogch shiljuuldeg function
+function switchToNextPlayer() {
+  //ene toglogchiin dice 1 buusan tul onoo 0 boln
+  roundScore = 0;
+  document.getElementById("current-" + activePlayer).textContent = 0;
+
+  //Toglogchiin eelj shiljuuleh
+  activePlayer === 0 ? (activePlayer = 1) : (activePlayer = 0);
+
+  //Ulaan tseg shiljuuleh.
+  document.querySelector(".player-0-panel").classList.toggle("active");
+  document.querySelector(".player-1-panel").classList.toggle("active");
+  // Shoo tur alga bolgoh
+  diceDom.style.display = "none";
+}
+
+// Shineeer togloomig ehluuleh tovchnii event listener
+document.querySelector(".btn-new").addEventListener("click", function () {
+  alert("hi");
 });
